@@ -1,0 +1,5 @@
+{
+  "_说明": "AGC 控制台(https://developer.huawei.com/consumer/zh/agc/)创建项目与应用 com.skyler.glmtoken 并开通推送服务后，把 Client ID / Client Secret 填到下面并去掉本行以下下划线开头的键。",
+  "client_id": "",
+  "client_secret": ""
+}
