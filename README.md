@@ -13,15 +13,15 @@
 
 1. 手机安装 Token 面板 App，用**华为账号一键登录**
 2. 在 App 里复制你的**采集器密钥**（`tp_` 开头）
-3. 电脑装 Python 3.10+，下载本仓库 `collector/` 目录，双击 `start-panel.bat`
-   （或命令行：`python glm_panel_server.py --cloud-url https://你的域名 --cloud-key 你的密钥`）
+3. 电脑装 Python 3.10+，下载本仓库 `collector/` 目录
+   `python glm_panel_server.py --cloud-url <采集上报触发URL> --cloud-key 你的密钥`
 4. 完成。桌面卡片每 30 分钟自动刷新，云端每 15 分钟推送刷新，人在任何网络都能看到最新用量
 
 ## 仓库结构
 
 | 目录 | 说明 |
 |---|---|
-| `cloud/` | AGC 云托管后端（多用户：华为账号登录、采集上报、聚合查询、推送调度）— 容器源码部署根目录 |
+| `cloudfunctions/` | AGC 云函数/云对象后端（登录/上报/聚合/推送，免费额度，[部署见 docs/deploy.md](docs/deploy.md)）|
 | `collector/` | 电脑端采集器（自动发现 ZCode/Claude/Codex 本地用量 + 本地网页面板 + 云上报） |
 | `docs/` | 文档与隐私政策 |
 
