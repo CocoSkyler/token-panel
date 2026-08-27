@@ -1,18 +1,100 @@
 {
-  "objectTypeName": "users",
-  "fields": [
-    { "fieldName": "uid", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
-    { "fieldName": "session", "fieldType": "String", "notNull": false },
-    { "fieldName": "collectorKey", "fieldType": "String", "notNull": false },
-    { "fieldName": "unionId", "fieldType": "String", "notNull": false },
-    { "fieldName": "lastCollect", "fieldType": "Integer", "notNull": false },
-    { "fieldName": "lastPush", "fieldType": "Integer", "notNull": false },
-    { "fieldName": "createdAt", "fieldType": "Integer", "notNull": false }
-  ],
-  "indexes": [
+  "permissions": [
     {
-      "indexName": "collectorKey_index",
-      "indexList": [{ "fieldName": "collectorKey", "sortType": "ASC" }]
+      "objectTypeName": "users",
+      "permissions": [
+        {
+          "role": "World",
+          "rights": []
+        },
+        {
+          "role": "Authenticated",
+          "rights": [
+            "Read",
+            "Upsert"
+          ]
+        },
+        {
+          "role": "Creator",
+          "rights": [
+            "Read",
+            "Upsert",
+            "Delete"
+          ]
+        },
+        {
+          "role": "Administrator",
+          "rights": [
+            "Read",
+            "Upsert",
+            "Delete"
+          ]
+        }
+      ]
+    }
+  ],
+  "objectTypes": [
+    {
+      "objectTypeName": "users",
+      "fields": [
+        {
+          "fieldName": "uid",
+          "notNull": true,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": true,
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "session",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "collectorKey",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "unionId",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "lastCollect",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "Long"
+        },
+        {
+          "fieldName": "lastPush",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "Long"
+        },
+        {
+          "fieldName": "createdAt",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "Long"
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "collectorKey_index",
+          "indexList": [
+            "collectorKey"
+          ]
+        }
+      ]
     }
   ]
 }

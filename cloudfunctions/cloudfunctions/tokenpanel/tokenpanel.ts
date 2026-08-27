@@ -32,7 +32,7 @@ export class TokenPanel {
   /** 聚合查询（App 端） */
   async usage(session: string): Promise<Record<string, Object>> {
     const user = await this.controller.userBySession(session);
-    if (!user) {
+    if (!user || !user.uid) {
       return { error: 'unauthorized' };
     }
     const rows = await this.controller.usageRows(user.uid);
@@ -44,7 +44,7 @@ export class TokenPanel {
   async collect(collectorKey: string, sources: Array<Record<string, Object>>):
     Promise<Record<string, Object>> {
     const user = await this.controller.userByKey(collectorKey);
-    if (!user) {
+    if (!user || !user.uid) {
       return { error: 'bad collector key' };
     }
     const n = await this.controller.upsertUsage(user.uid, sources);
@@ -60,7 +60,7 @@ export class TokenPanel {
   async registerDevice(session: string, token: string, formIds: string[]):
     Promise<Record<string, Object>> {
     const user = await this.controller.userBySession(session);
-    if (!user || !token) {
+    if (!user || !user.uid || !token) {
       return { error: 'unauthorized' };
     }
     await this.controller.registerDevice(user.uid, token, formIds);
@@ -70,7 +70,7 @@ export class TokenPanel {
   /** 生成/重置采集器密钥 */
   async rotateKey(session: string): Promise<Record<string, Object>> {
     const user = await this.controller.userBySession(session);
-    if (!user) {
+    if (!user || !user.uid) {
       return { error: 'unauthorized' };
     }
     const key = await this.controller.rotateKey(user.uid);
@@ -85,6 +85,9 @@ export class TokenPanel {
         return;
       }
       const user = await this.controller.userByUid(uid);
+      if (!user || !user.uid) {
+        return;
+      }
       const rows = await this.controller.usageRows(uid);
       const data = flattenCardData(aggregate(rows,
         { lastCollect: user?.lastCollect ?? 0 }));

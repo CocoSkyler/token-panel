@@ -1,20 +1,100 @@
 {
-  "objectTypeName": "usageRecords",
-  "fields": [
-    { "fieldName": "uid", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
-    { "fieldName": "date", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
-    { "fieldName": "source", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
-    { "fieldName": "tokens", "fieldType": "Integer", "notNull": false },
-    { "fieldName": "color", "fieldType": "String", "notNull": false },
-    { "fieldName": "hitRate", "fieldType": "Double", "notNull": false },
-    { "fieldName": "updatedAt", "fieldType": "Integer", "notNull": false }
-  ],
-  "indexes": [
+  "permissions": [
     {
-      "indexName": "uid_date_index",
-      "indexList": [
-        { "fieldName": "uid", "sortType": "ASC" },
-        { "fieldName": "date", "sortType": "ASC" }
+      "objectTypeName": "usageRecords",
+      "permissions": [
+        {
+          "role": "World",
+          "rights": []
+        },
+        {
+          "role": "Authenticated",
+          "rights": [
+            "Read",
+            "Upsert"
+          ]
+        },
+        {
+          "role": "Creator",
+          "rights": [
+            "Read",
+            "Upsert",
+            "Delete"
+          ]
+        },
+        {
+          "role": "Administrator",
+          "rights": [
+            "Read",
+            "Upsert",
+            "Delete"
+          ]
+        }
+      ]
+    }
+  ],
+  "objectTypes": [
+    {
+      "objectTypeName": "usageRecords",
+      "fields": [
+        {
+          "fieldName": "uid",
+          "notNull": true,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": true,
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "date",
+          "notNull": true,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": true,
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "source",
+          "notNull": true,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": true,
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "tokens",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "Integer"
+        },
+        {
+          "fieldName": "color",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "hitRate",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "Float"
+        },
+        {
+          "fieldName": "updatedAt",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "Long"
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "uid_date_index",
+          "indexList": [
+            "uid",
+            "date"
+          ]
+        }
       ]
     }
   ]

@@ -1,15 +1,79 @@
 {
-  "objectTypeName": "devices",
-  "fields": [
-    { "fieldName": "uid", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
-    { "fieldName": "pushToken", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
-    { "fieldName": "formIds", "fieldType": "String", "notNull": false },
-    { "fieldName": "updatedAt", "fieldType": "Integer", "notNull": false }
-  ],
-  "indexes": [
+  "permissions": [
     {
-      "indexName": "uid_index",
-      "indexList": [{ "fieldName": "uid", "sortType": "ASC" }]
+      "objectTypeName": "devices",
+      "permissions": [
+        {
+          "role": "World",
+          "rights": []
+        },
+        {
+          "role": "Authenticated",
+          "rights": [
+            "Read",
+            "Upsert"
+          ]
+        },
+        {
+          "role": "Creator",
+          "rights": [
+            "Read",
+            "Upsert",
+            "Delete"
+          ]
+        },
+        {
+          "role": "Administrator",
+          "rights": [
+            "Read",
+            "Upsert",
+            "Delete"
+          ]
+        }
+      ]
+    }
+  ],
+  "objectTypes": [
+    {
+      "objectTypeName": "devices",
+      "fields": [
+        {
+          "fieldName": "uid",
+          "notNull": true,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": true,
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "pushToken",
+          "notNull": true,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": true,
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "formIds",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "updatedAt",
+          "notNull": false,
+          "isNeedEncrypt": false,
+          "belongPrimaryKey": false,
+          "fieldType": "Long"
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "uid_index",
+          "indexList": [
+            "uid"
+          ]
+        }
+      ]
     }
   ]
 }

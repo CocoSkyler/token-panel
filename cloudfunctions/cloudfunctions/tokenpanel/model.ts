@@ -43,7 +43,7 @@ export class Users {
     return [];
   }
 
-  parseFrom(record: Record<string, Object): Users {
+  parseFrom(record: Record<string, Object>): Users {
     this.uid = record['uid'] as string;
     this.session = record['session'] as string;
     this.collectorKey = record['collectorKey'] as string;
@@ -95,7 +95,7 @@ export class UsageRecords {
     return [];
   }
 
-  parseFrom(record: Record<string, Object): UsageRecords {
+  parseFrom(record: Record<string, Object>): UsageRecords {
     this.uid = record['uid'] as string;
     this.date = record['date'] as string;
     this.source = record['source'] as string;
@@ -141,7 +141,7 @@ export class Devices {
     return [];
   }
 
-  parseFrom(record: Record<string, Object): Devices {
+  parseFrom(record: Record<string, Object>): Devices {
     this.uid = record['uid'] as string;
     this.pushToken = record['pushToken'] as string;
     this.formIds = record['formIds'] as string;

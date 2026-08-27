@@ -30,14 +30,12 @@ export class Controller {
     if (!session) {
       return undefined;
     }
-    const snap = await col(Users).query().equalTo('session', session).limit(2).get();
-    const list = snap.getSnapshotObjects() as Users[];
+    const list = await col(Users).query().equalTo('session', session).limit(2).get() as Users[];
     return list.length > 0 ? list[0] : undefined;
   }
 
   async userByUid(uid: string): Promise<Users | undefined> {
-    const snap = await col(Users).query().equalTo('uid', uid).limit(2).get();
-    const list = snap.getSnapshotObjects() as Users[];
+    const list = await col(Users).query().equalTo('uid', uid).limit(2).get() as Users[];
     return list.length > 0 ? list[0] : undefined;
   }
 
@@ -45,8 +43,7 @@ export class Controller {
     if (!key) {
       return undefined;
     }
-    const snap = await col(Users).query().equalTo('collectorKey', key).limit(2).get();
-    const list = snap.getSnapshotObjects() as Users[];
+    const list = await col(Users).query().equalTo('collectorKey', key).limit(2).get() as Users[];
     return list.length > 0 ? list[0] : undefined;
   }
 
@@ -78,12 +75,11 @@ export class Controller {
 
   async usageRows(uid: string): Promise<UsageRow[]> {
     const since = this.dateStr(-29);
-    const snap = await col(UsageRecords).query()
+    const list = await col(UsageRecords).query()
       .equalTo('uid', uid)
       .greaterThanOrEqualTo('date', since)
       .limit(2000)
-      .get();
-    const list = snap.getSnapshotObjects() as UsageRecords[];
+      .get() as UsageRecords[];
     return list.map(r => ({
       date: r.date ?? '',
       source: r.source ?? '',
@@ -137,12 +133,11 @@ export class Controller {
 
   async registerDevice(uid: string, pushToken: string, formIds: string[]):
     Promise<void> {
-    const snap = await col(Devices).query()
+    const existing = (await col(Devices).query()
       .equalTo('uid', uid)
       .equalTo('pushToken', pushToken)
       .limit(1)
-      .get();
-    const existing = (snap.getSnapshotObjects() as Devices[])[0];
+      .get() as Devices[])[0];
     let merged: string[] = Array.from(formIds || []);
     if (existing?.formIds) {
       try {
@@ -161,8 +156,7 @@ export class Controller {
   }
 
   async deviceTargets(uid: string): Promise<DeviceTarget[]> {
-    const snap = await col(Devices).query().equalTo('uid', uid).limit(50).get();
-    const list = snap.getSnapshotObjects() as Devices[];
+    const list = await col(Devices).query().equalTo('uid', uid).limit(50).get() as Devices[];
     const out: DeviceTarget[] = [];
     for (const d of list) {
       let fids: string[] = [];
@@ -179,8 +173,7 @@ export class Controller {
   }
 
   async usersWithDevices(): Promise<string[]> {
-    const snap = await col(Devices).query().limit(500).get();
-    const list = snap.getSnapshotObjects() as Devices[];
+    const list = await col(Devices).query().limit(500).get() as Devices[];
     return Array.from(new Set(list.map(d => d.uid ?? ''))).filter(u => u !== '');
   }
 
