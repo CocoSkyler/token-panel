@@ -1,0 +1,18 @@
+{
+  "objectTypeName": "users",
+  "fields": [
+    { "fieldName": "uid", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
+    { "fieldName": "session", "fieldType": "String", "notNull": false },
+    { "fieldName": "collectorKey", "fieldType": "String", "notNull": false },
+    { "fieldName": "unionId", "fieldType": "String", "notNull": false },
+    { "fieldName": "lastCollect", "fieldType": "Integer", "notNull": false },
+    { "fieldName": "lastPush", "fieldType": "Integer", "notNull": false },
+    { "fieldName": "createdAt", "fieldType": "Integer", "notNull": false }
+  ],
+  "indexes": [
+    {
+      "indexName": "collectorKey_index",
+      "indexList": [{ "fieldName": "collectorKey", "sortType": "ASC" }]
+    }
+  ]
+}

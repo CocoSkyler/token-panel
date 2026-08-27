@@ -1,0 +1,21 @@
+{
+  "objectTypeName": "usageRecords",
+  "fields": [
+    { "fieldName": "uid", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
+    { "fieldName": "date", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
+    { "fieldName": "source", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
+    { "fieldName": "tokens", "fieldType": "Integer", "notNull": false },
+    { "fieldName": "color", "fieldType": "String", "notNull": false },
+    { "fieldName": "hitRate", "fieldType": "Double", "notNull": false },
+    { "fieldName": "updatedAt", "fieldType": "Integer", "notNull": false }
+  ],
+  "indexes": [
+    {
+      "indexName": "uid_date_index",
+      "indexList": [
+        { "fieldName": "uid", "sortType": "ASC" },
+        { "fieldName": "date", "sortType": "ASC" }
+      ]
+    }
+  ]
+}

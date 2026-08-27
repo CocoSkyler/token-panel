@@ -1,0 +1,15 @@
+{
+  "objectTypeName": "devices",
+  "fields": [
+    { "fieldName": "uid", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
+    { "fieldName": "pushToken", "fieldType": "String", "notNull": true, "belongPrimaryKey": true },
+    { "fieldName": "formIds", "fieldType": "String", "notNull": false },
+    { "fieldName": "updatedAt", "fieldType": "Integer", "notNull": false }
+  ],
+  "indexes": [
+    {
+      "indexName": "uid_index",
+      "indexList": [{ "fieldName": "uid", "sortType": "ASC" }]
+    }
+  ]
+}

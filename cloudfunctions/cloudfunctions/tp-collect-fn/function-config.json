@@ -1,0 +1,14 @@
+{
+  "handler": "myHandler",
+  "functionType": "0",
+  "triggers": [
+    {
+      "type": "http",
+      "properties": {
+        "authFlag": false,
+        "authAlgor": "HDA-SYSTEM",
+        "authType": "cloudgw-client"
+      }
+    }
+  ]
+}

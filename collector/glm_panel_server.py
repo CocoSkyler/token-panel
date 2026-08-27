@@ -660,11 +660,11 @@ def cloud_sync_loop(cloud_url: str, cloud_key: str, db_path_getter):
                 days = {d["date"]: d["total"] for d in g.get("days", [])}
                 sources.append({"name": g["name"], "color": g["color"],
                                 "hitRate": g.get("hitRate", 0), "days": days})
-            body = json.dumps({"sources": sources}, ensure_ascii=False).encode()
+            body = json.dumps({"collectorKey": cloud_key, "sources": sources},
+                              ensure_ascii=False).encode()
             req = urllib.request.Request(
-                cloud_url.rstrip("/") + "/api/collect", data=body,
-                headers={"Content-Type": "application/json; charset=UTF-8",
-                         "X-Collector-Key": cloud_key})
+                cloud_url, data=body,
+                headers={"Content-Type": "application/json; charset=UTF-8"})
             with urllib.request.urlopen(req, timeout=20) as r:
                 r.read()
             print(f"[CLOUD-SYNC] 上报 {len(sources)} 个来源成功", flush=True)
@@ -690,7 +690,7 @@ def main():
     ap.add_argument("--port", type=int, default=8787)
     ap.add_argument("--db", default=None, help="ZCode db.sqlite 路径")
     ap.add_argument("--cloud-url", default=None,
-                    help="云端地址(如 https://xxx.agconnect.link)：开启云上报")
+                    help="云端 tp-collect-fn HTTP 触发器完整 URL：开启云上报")
     ap.add_argument("--cloud-key", default=None, help="云端采集器密钥(tp_开头)")
     args = ap.parse_args()
 

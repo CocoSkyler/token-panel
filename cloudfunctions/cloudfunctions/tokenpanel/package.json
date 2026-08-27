@@ -1,0 +1,10 @@
+{
+  "name": "tokenpanel",
+  "version": "1.0.0",
+  "description": "Token面板云对象",
+  "main": "tokenpanel.ts",
+  "dependencies": {
+    "@agconnect/cloud-server": "^1.0.5",
+    "axios": "^1.7.0"
+  }
+}
