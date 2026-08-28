@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<title>Token面板软件 V1.0 用户手册</title>
+<style>
+@page{size:A4;margin:20mm}
+body{font-family:'HarmonyOS Sans SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;line-height:1.8;color:#111;max-width:820px;margin:0 auto;padding:20px}
+h1{text-align:center;font-size:22pt;margin:18px 0 4px}
+.sub{text-align:center;color:#666;font-size:11pt;margin-bottom:28px}
+h2{font-size:15pt;border-bottom:2px solid #345;padding-bottom:6px;margin-top:2em}
+h3{font-size:12.5pt;margin-top:1.4em}
+img{max-width:420px;display:block;margin:12px auto;border:1px solid #ddd;border-radius:12px}
+figure{text-align:center;margin:14px 0}
+figcaption{font-size:10pt;color:#555}
+table{border-collapse:collapse;width:100%;margin:10px 0}
+td,th{border:1px solid #999;padding:6px 10px;font-size:10.5pt;text-align:left}
+code{background:#f2f4f7;padding:1px 5px;border-radius:4px;font-size:10.5pt}
+.pre{background:#f6f8fa;border:1px solid #ddd;border-radius:6px;padding:10px;font-family:Consolas,monospace;font-size:10pt;white-space:pre-wrap}
+</style></head><body>
+<h1>Token面板软件 用户手册</h1>
+<div class="sub">版本 V1.0.0 ｜ 运行环境：HarmonyOS（API 12 及以上） ｜ 开发者：CocoSkyler</div>
+
+<h2>一、软件概述</h2>
+<p>Token面板软件是一款运行于 HarmonyOS 终端的 AI 编程工具 Token 用量统计应用。软件由三部分组成：鸿蒙手机端应用（含 4×4、2×4、2×2 三种桌面服务卡片）、AGC 云函数后端（多用户账号与数据聚合）、以及运行于用户个人电脑的采集器程序（自动统计 GLM/ZCode、Claude Code、Codex CLI 等工具的按日 Token 用量）。</p>
+<p>软件主要功能：华为账号一键登录；多来源用量自动发现与聚合；桌面服务卡片实时展示（含近 7 天趋势曲线、各来源占比与缓存命中率）；云端同步与任意网络卡片推送刷新；本地局域网面板模式。</p>
+
+<h2>二、运行环境</h2>
+<table>
+<tr><th>端</th><th>要求</th></tr>
+<tr><td>手机端</td><td>HarmonyOS 5 / 7.0 及以上（API 12+），已登录华为账号</td></tr>
+<tr><td>电脑端（可选，数据来源）</td><td>Windows 10+，Python 3.10 及以上，已安装 ZCode / Claude Code / Codex CLI 等工具</td></tr>
+<tr><td>网络</td><td>首次绑定与云端同步需可访问互联网；局域网面板需与电脑同一 Wi-Fi</td></tr>
+</table>
+
+<h2>三、安装与登录</h2>
+<h3>3.1 安装应用</h3>
+<p>通过应用市场或内测分发链接安装 Token面板应用。安装完成后桌面出现「Token面板」图标。</p>
+<h3>3.2 华为账号一键登录</h3>
+<p>打开应用，进入登录页，点击「华为账号一键登录」按钮，在系统弹窗中确认授权。登录成功后应用显示「已登录 · 云同步已开启」，并生成本账号专属的采集器绑定密钥（tp_ 开头）。</p>
+<figure><img src="../images/card-4x4-live.png" alt="应用与桌面卡片"><figcaption>图 1 应用登录后桌面卡片自动刷新（示例数据）</figcaption></figure>
+
+<h2>四、电脑采集器配置</h2>
+<ol>
+<li>在电脑上安装 Python 3.10 及以上版本；</li>
+<li>下载采集器目录（GitHub 仓库 collector/），将 App 中显示的采集器密钥以参数方式传入；</li>
+<li>启动命令示例：</li>
+</ol>
+<div class="pre">python glm_panel_server.py --cloud-url https://… --cloud-key tp_xxxxxxxxxxxxxxxx</div>
+<p>采集器启动后自动扫描本机的 ZCode、Claude Code、Codex CLI 会话记录，按日统计各来源 Token 用量并定时上报云端。上报内容仅包含按日汇总的数量统计，不包含任何对话内容或代码。</p>
+
+<h2>五、桌面卡片使用</h2>
+<p>在手机桌面空白处长按，选择「服务卡片」，找到「Token面板」，可选择三种规格：</p>
+<table>
+<tr><th>规格</th><th>内容</th></tr>
+<tr><td>4×4 完整版</td><td>今日总消耗、涨跌、预计全天、环形图（今日 vs 7 日均值）、Top2 来源卡片（占比、命中率、迷你趋势线）、近 7 天趋势图（柱状 + 平滑曲线、日均线、峰值标记、今日气泡）</td></tr>
+<tr><td>2×4 横幅版</td><td>今日总消耗、均值对比、各来源行、趋势条</td></tr>
+<tr><td>2×2 迷你版</td><td>今日总消耗与在线状态</td></tr>
+</table>
+<p>点击卡片任意位置可立即刷新；系统每 30 分钟自动刷新一次；登录用户在云端数据更新时由推送通道即时刷新。</p>
+
+<h2>六、常见问题</h2>
+<p><b>卡片数据不更新？</b> 请确认电脑采集器正在运行且密钥配置正确；点击卡片可立即刷新。</p>
+<p><b>更换电脑或重装系统？</b> 在 App 中重新生成采集器密钥并重新配置即可。</p>
+<p><b>统计口径？</b> Token 总量 = 模型调用输入 + 输出（输入侧包含缓存命中部分），与各工具自身统计一致；命中率为输入缓存复用比例。</p>
+
+<h2>七、隐私说明</h2>
+<p>本软件仅收集华为账号开放标识与按日用量统计数据，不含任何对话与代码内容，完整政策见应用内或分发页附带的《隐私政策》。</p>
+</body></html>
